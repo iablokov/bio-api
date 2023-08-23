@@ -3,6 +3,8 @@ This is an experimental repository aimed for testing different strategies on how
 One of the purposes of this research is to make a flexible API that is universal throughout languages that follow different paradigms, such as Rust and Python.
 The ultimate goal of this project is to develop a biological library in Rust that can be easily wrapped into a corresponding Python's package with the shared codebase (in Rust).
 
+## Python version
+
 The main idea behind the appraoch used here consists in providing a significant amount of flexibility when working with biological sequences. This is achieved by allowing a user to define their own alphabets (`class Alphabet`) and alphabet transformations:
 * Transcription, i.e., a map from one alphabet to another.
 * Translation, i.e., a map from k-mers of one alphabet to symbols of another.
