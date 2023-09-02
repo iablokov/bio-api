@@ -80,23 +80,25 @@ class PrtSequence(Sequence):
         super().__init__(sequence, alphabet)
 
 
+#def make_protein(prt_alphabet : Alphabet) -> PrtFactory:
+    
 def make_triple(dna_alphabet : Alphabet, 
                 rna_alphabet : Alphabet,
                 prt_alphabet : Alphabet,
-                dna_to_rna   : TranscriptionTable, 
-                rna_to_dna   : TranscriptionTable,
-                dna_to_prt   : TranslationTable,
-                rna_to_prt   : TranslationTable,
-                dna_to_dna   : ComplementTable, 
-                rna_to_rna   : ComplementTable
+                dna_to_rna   : Optional[TranscriptionTable],
+                rna_to_dna   : Optional[TranscriptionTable],
+                dna_to_prt   : Optional[TranslationTable],
+                rna_to_prt   : Optional[TranslationTable],
+                dna_to_dna   : Optional[ComplementTable], 
+                rna_to_rna   : Optional[ComplementTable]
                ) -> Tuple[NucFactory, NucFactory, PrtFactory]:
     
-    dna_tsc_data = TranscriptionData(dna_to_rna)
-    rna_tsc_data = TranscriptionData(rna_to_dna)    
-    dna_tla_data = TranslationData(dna_to_prt)
-    rna_tla_data = TranslationData(rna_to_prt)    
-    dna_cmp_data = ComplementData(dna_to_dna)
-    rna_cmp_data = ComplementData(rna_to_rna)    
+    dna_tsc_data = TranscriptionData(dna_to_rna) if dna_to_rna is not None else None
+    rna_tsc_data = TranscriptionData(rna_to_dna) if rna_to_dna is not None else None
+    dna_tla_data = TranslationData(dna_to_prt)   if dna_to_prt is not None else None
+    rna_tla_data = TranslationData(rna_to_prt)   if rna_to_prt is not None else None 
+    dna_cmp_data = ComplementData(dna_to_dna)    if dna_to_dna is not None else None
+    rna_cmp_data = ComplementData(rna_to_rna)    if rna_to_rna is not None else None
 
     DNA: NucFactory = lambda sequence: NucSequence(sequence, dna_alphabet, dna_tsc_data, dna_tla_data, dna_cmp_data)
     RNA: NucFactory = lambda sequence: NucSequence(sequence, rna_alphabet, rna_tsc_data, rna_tla_data, rna_cmp_data)

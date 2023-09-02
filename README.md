@@ -15,3 +15,15 @@ Each `Sequence` is constructed not only with the `sequence` string itself, but a
 In order to hide all this complexity and provide a simple API for working with standard biological sequences, such as DNA, RNA, and Proteins, the corresponding factories are used. They are designed to be simple functions of only one string argument (i.e., `sequence`). The rest, e.g., assignment of an `Alphabet` and its transformations, happends "under the hood". These factories themeselves are created using another factory `make_triple(...)` out of RNA/DNA/Protein alphabets and their transformations. For popular alphabets (e.g., standard, IUPAC, etc), the corresponding factories are already instantiated, e.g., `DNA`, `RNA`, and `Protein`. Their main purpose is to simplify the creation of `Sequence` objects (such as `NucSequence`) from `sequence` strings, e.g.
 * when applying transformations (`transcribe/translate/complement`) on existing `Sequences` objects
 * when reading sequences from data streams (e.g., a file storage) using `FastaIO` and/or `FastqIO` classes.
+
+
+## Rust version #1
+
+In this approach, we mimic a real biological system by making sequence transformations externally, i.e., through "enzymatic" objects. These are
+* `Transcriptase` for transcription,
+* `Polymerase` for complementatiopn,
+* `Ribosome` for translation.
+
+This way, `Sequence` is a pure storage of a `sequence` string (together with its corresponding `Alphabet`).
+
+Had we chosen another approach with the `.transcribe()` method being internal to the `Sequence` struct (as for the Python version), we would have stumbled across the circular dependency with factories which are much harder to deal with in Rust (and most likely would have required using `unsafe` code).

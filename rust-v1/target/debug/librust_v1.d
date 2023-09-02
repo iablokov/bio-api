@@ -1,0 +1,1 @@
+D:\work\_github\bio-api\rust-v1\target\debug\librust_v1.rlib: D:\work\_github\bio-api\rust-v1\src\lib.rs D:\work\_github\bio-api\rust-v1\src\seq\alphabet.rs D:\work\_github\bio-api\rust-v1\src\seq\mod.rs
